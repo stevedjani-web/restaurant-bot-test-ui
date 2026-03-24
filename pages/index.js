@@ -15,10 +15,14 @@ export default function Home() {
     try {
       const res = await fetch(`${webhook}?message=${encodeURIComponent(message)}`);
       const data = await res.json();
+console.log("BOT DATA:", data);
 
-      setChat((prev) => [
-        ...prev,
-        {role: "bot", text: data.reply_text || data[0]?.reply_text || "No response" }
+setChat((prev) => [
+  ...prev,
+  {
+    role: "bot",
+    text: data.reply_text || data.result || data[0]?.reply_text || data[0]?.result || "No response"
+  }
       ]);
     } catch (e) {
       setChat((prev) => [
