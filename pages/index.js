@@ -4,7 +4,7 @@ export default function Home() {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState([]);
 
-  const webhook = "https://lobima.app.n8n.cloud/webhook/restaurant-bot";
+  const webhook = "https://lobima.app.n8n.cloud/webhook/restaurant-bot-ui";
 
   const sendMessage = async () => {
     if (!message) return;
