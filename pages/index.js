@@ -7,37 +7,37 @@ export default function Home() {
   const webhook = "https://lobima.app.n8n.cloud/webhook/restaurant-bot-ui";
 
   const sendMessage = async () => {
-    if (!message) return;
+  if (!message) return;
 
-    const userMsg = { role: "user", text: message };
-    setChat((prev) => [...prev, userMsg]);
+  const userMsg = { role: "user", text: message };
+  setChat((prev) => [...prev, userMsg]);
 
-    try {
-      const url = new URL(webhook);
-url.searchParams.set("message", message);
-url.searchParams.set("from", "237699000001");
-url.searchParams.set("name", "Steve");
+  try {
+    const url = new URL(webhook);
+    url.searchParams.set("message", message);
+    url.searchParams.set("from", "237699000001");
+    url.searchParams.set("name", "Steve");
 
-const res = await fetch(url.toString());
-      const data = await res.json();
-console.log("BOT DATA:", data);
+    const res = await fetch(url.toString());
+    const data = await res.json();
+    console.log("BOT DATA:", data);
 
-setChat((prev) => [
-  ...prev,
-  {
-    role: "bot",
-    text: data.reply_text || data.result || data[0]?.reply_text || data[0]?.result || "No response"
+    setChat((prev) => [
+      ...prev,
+      {
+        role: "bot",
+        text: data.reply_text || data.result || data[0]?.reply_text || data[0]?.result || JSON.stringify(data)
+      }
+    ]);
+  } catch (e) {
+    setChat((prev) => [
+      ...prev,
+      { role: "bot", text: "Erreur connexion bot" }
+    ]);
   }
-      ]);
-    } catch (e) {
-      setChat((prev) => [
-        ...prev,
-        { role: "bot", text: "Erreur connexion bot" }
-      ]);
-    }
 
-    setMessage("");
-  };
+  setMessage("");
+};
 
   return (
     <div style={{ maxWidth: 400, margin: "40px auto", fontFamily: "Arial" }}>
