@@ -13,7 +13,12 @@ export default function Home() {
     setChat((prev) => [...prev, userMsg]);
 
     try {
-      const res = await fetch(`${webhook}?message=${encodeURIComponent(message)}`);
+      const url = new URL(webhook);
+url.searchParams.set("message", message);
+url.searchParams.set("from", "237699000001");
+url.searchParams.set("name", "Steve");
+
+const res = await fetch(url.toString());
       const data = await res.json();
 console.log("BOT DATA:", data);
 
