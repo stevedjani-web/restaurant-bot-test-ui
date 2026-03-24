@@ -18,7 +18,7 @@ export default function Home() {
 
       setChat((prev) => [
         ...prev,
-        { role: "bot", text: data.reply_text || "No response" }
+        {role: "bot", text: data.reply_text || data[0]?.reply_text || "No response" }
       ]);
     } catch (e) {
       setChat((prev) => [
